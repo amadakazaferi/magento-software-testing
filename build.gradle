@@ -1,0 +1,64 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath  'net.serenity-bdd:serenity-gradle-plugin:2.4.34'
+        classpath "net.serenity-bdd:serenity-single-page-report:2.4.34"
+    }
+}
+
+plugins {
+    id 'java'
+    id 'application'
+}
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+
+}
+
+apply plugin: 'net.serenity-bdd.aggregator'
+apply plugin: 'java'
+
+group 'org.magento'
+version '1.0-SNAPSHOT'
+
+compileJava.options.encoding = "UTF-8"
+compileTestJava.options.encoding = "UTF-8"
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+    implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '4.8.1'
+    implementation group: 'net.serenity-bdd', name: 'serenity-core', version: '3.6.12'
+    implementation group: 'net.serenity-bdd', name: 'serenity-reports', version: '3.6.12'
+    testImplementation group: 'net.serenity-bdd', name: 'serenity-cucumber', version: '3.6.12'
+    implementation group: 'net.serenity-bdd', name: 'serenity-single-page-report', version: '3.6.12'
+    implementation group: 'io.github.bonigarcia', name: 'webdrivermanager', version: '5.3.2'
+    implementation group: 'io.cucumber', name: 'cucumber-core', version: '7.11.1'
+    testImplementation group: 'io.cucumber', name: 'cucumber-junit', version: '7.11.1'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.20.0'
+    implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.20.0'
+
+}
+
+test {
+    include "**/*TestRunner.class"
+    testLogging.showStandardStreams = true
+    systemProperties = System.getProperties()
+    systemProperties.remove("java.endorset.dirs")
+}
+
+serenity{
+    reports = ["single-page-html"]
+}
+
+gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)
+
