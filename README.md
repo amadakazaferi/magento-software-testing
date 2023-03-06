@@ -10,9 +10,12 @@ To start the Test Suite, please run the **TestRunner.java** or run in the termin
 - Tests are written in BDD Gherkin format and it is represented as a living documentation in the test report in the directory 'target/site/serenity/'
 - Application under test: (https://magento.softwaretestingboard.com/)
 
-#Exclaimer 
+## Exclaimer 
 
 The webdriver will quit after every Scenario, this is why for Preconditions is used the Background option. 
+
+- In the step  'When user adds <itemNumber> first item in WishList' is developed the logic to add a given number of items, but the website behavior is: once you click in the 'Add to Wishlist' button the website will be redirected to WishList page. 
+ 
 
 ## Other Configurations configuration
 
