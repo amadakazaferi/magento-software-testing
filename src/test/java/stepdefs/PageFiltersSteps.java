@@ -51,4 +51,14 @@ public class PageFiltersSteps {
         String actualPrice = storePage.getPriceValuePDP().getText().replace("$", "");
 
     }
+
+    @When("user click on Sort menu and selects {string}")
+    public void sortFilters(String option) {
+       magentoUser.sortFilters(option);
+    }
+
+    @Then("the products are sorted in ascending and descending direction")
+    public void theProductsAreSortedInAscendingAndDescendingDirection() {
+
+    }
 }

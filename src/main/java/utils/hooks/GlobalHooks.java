@@ -1,5 +1,7 @@
 package utils.hooks;
 
+import io.cucumber.core.runner.Runner;
+import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -7,6 +9,7 @@ import pages.magento.BasePage;
 import steps.MagentoUser;
 
 import java.io.IOException;
+
 
 import static utils.settings.MagentoSettings.magentoLoginUrl;
 
@@ -19,8 +22,17 @@ public class GlobalHooks {
     @Before(value = "@UserLoggedIn")
     public void before() throws IOException {
         basePage.navigateTo(magentoLoginUrl);
-        magentoUser.loginWithDynamicEmail();
+        magentoUser.loginWithSimpleEmail();
     }
 
+    @Before(order =1,value = "@Test3Precondition")
+    public void executeFeature3(){
+
+    }
+
+    @After(order = 0, value = "@UserLoggedIn")
+    public void after(){
+        magentoUser.logout();
+    }
 
 }

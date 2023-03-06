@@ -1,5 +1,6 @@
 Feature: User Creates a New Account in Magento APP
 
+  @Test1
   Scenario Outline:  Create an Account
     Given a user is navigating the Magento app
     When  user clicks on link to "Create Account"

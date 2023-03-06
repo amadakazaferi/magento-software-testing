@@ -4,16 +4,13 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import io.cucumber.java.it.Ma;
-import pages.magento.AccountPage;
+import pages.magento.ProfilePage;
 import pages.magento.BasePage;
 import pages.magento.CreateAccountPage;
 import pages.magento.LoginPage;
 import steps.MagentoUser;
-import utils.settings.MagentoSettings;
 
 import java.io.IOException;
-import java.nio.file.Path;
 import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,7 +21,7 @@ public class LoginAndRegistrationSteps {
 
     private BasePage basePage;
     private CreateAccountPage createAccountPage;
-    private AccountPage accountPage;
+    private ProfilePage accountPage;
     private LoginPage loginPage;
     private MagentoUser magentoUser;
 

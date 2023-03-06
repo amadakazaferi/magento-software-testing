@@ -16,13 +16,11 @@ private static final WebDriver driver= ThucydidesWebDriverSupport.getDriver();
     public static final String testLastName = "User";
     public static final String testPassword = "userTest23.";
 
-    public static final String simpleEmail = "test.user23@gmail.com";
+    public static String simpleEmail = "test_user060323@gmail.com";
     public static final String baseMail = "test_user";
     public static String dynamicEmail = "";
-
     public static String lastDynamicEmail = "";
     public static final String testUsername = testFirstName.concat(" " + testLastName);
-
     public static final String magentoBaseUrl = "https://magento.softwaretestingboard.com/";
     public static final String magentoLoginUrl = magentoBaseUrl + "/customer/account/login/";
 

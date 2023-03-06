@@ -3,7 +3,7 @@ package pages.magento;
 import net.serenitybdd.core.pages.WebElementFacade;
 import org.openqa.selenium.support.FindBy;
 
-public class AccountPage extends BasePage{
+public class ProfilePage extends BasePage{
 
     @FindBy(xpath = "//div[@class='panel header']//div[@class='customer-menu']//a[contains(text(),'Sign Out')]")
     private WebElementFacade logoutButton;

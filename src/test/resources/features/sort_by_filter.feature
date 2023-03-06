@@ -1,9 +1,14 @@
-Feature:
-  Scenario:
-#  Precondition: Sign in Luma Application
-#  1. On store menu click on Women dropdown.
-#  2. Hover over Tops dropdown on the open pop up and click on Jacket menu option.
-#  3. Click on Sort by dropdown and select ‘Product Name’ option.
-#  4. Make sure sorting products based on their name works both ascending and
-#  descending direction.
-#  5. Repeat steps 3&4 for ‘Price’ option
+Feature: Check page filters
+
+  @UserLoggedIn @Test7
+  Scenario Outline: User sorts products by filter options
+
+    Given the user selects filters from the store menu
+      | Women | Tops | Jackets |
+    When user click on Sort menu and selects "<option>"
+    Then the products are sorted in ascending and descending direction
+
+    Examples:
+      | option       |
+      | Product Name |
+      | Price        |

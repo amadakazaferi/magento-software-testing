@@ -15,7 +15,7 @@ public class MagentoUser extends BasePage {
     private BasePage basePage;
     private LoginPage loginPage;
     private CreateAccountPage createAccountPage;
-    private AccountPage accountPage;
+    private ProfilePage accountPage;
     private StorePage storePage;
 
     @Step("#actor logs in with dynamic email")
@@ -92,5 +92,15 @@ public class MagentoUser extends BasePage {
         storePage.getPriceFilterButton().waitUntilClickable().click();
         storePage.getFixedPriceRange(priceRange);
         resetImplicitTimeout();
+    }
+
+    @Step("#actor removes price filter")
+    public void removePriceFilter() {
+
+    }
+    @Step("#actor sorts filters based on option")
+    public void sortFilters(String option) {
+        storePage.getSorterSelectButton().waitUntilClickable().click();
+        storePage.getSorterOption(option).waitUntilClickable().click();
     }
 }

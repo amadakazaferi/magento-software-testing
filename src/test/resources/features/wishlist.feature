@@ -1,9 +1,20 @@
-Feature:
-  Scenario:
+Feature: Wishlist
 
-#  1. Remove Price filter.
-#  2. Check the items number displayed is increased.
-#  3. Add the two first item in the Wish List.
-#  4. Check successful message (text + icon).
-#  5. Click on User Profile and check the correct number of items is displayed (My
-#  Wish List (2 items)).
+  Background:
+    Given the user selects filters from the store menu
+      |Women | Tops | Jackets |
+    When user selects "Black" color in Shopping Options panel
+    And user selects price "50-60"
+
+  @UserLoggedIn @Test4 @Test3Precondition
+  Scenario Outline: User is able to add items to wishlist
+
+    Given user removes existing price filter
+#    Then the item number increases
+#    When user adds "<itemNumber>" first item in WishList
+#    Then  items are added successfully
+#    And the "<itemNumber>" items added are displayed in User Profile
+
+    Examples:
+      | itemNumber |
+      | 2          |
