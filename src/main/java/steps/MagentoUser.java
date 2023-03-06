@@ -141,7 +141,7 @@ public class MagentoUser extends BasePage {
         List<WebElementFacade> itemsList = shoppingCartPage.getCartItemsList();
         for (WebElementFacade item : itemsList) {
             String str = item.findElement(By.xpath("//tbody[@class='cart item']//td[@data-th='Subtotal']//span//span//span")).getText().replace("$", "");
-            sumOfItemsInCart = +Integer.parseInt(str);
+            sumOfItemsInCart += Integer.parseInt(str);
         }
         return expectedPriceTotal == sumOfItemsInCart;
     }
