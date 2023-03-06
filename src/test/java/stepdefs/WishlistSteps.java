@@ -10,10 +10,13 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import pages.magento.BasePage;
 import pages.magento.StorePage;
+import pages.magento.WishlistPage;
 import steps.MagentoUser;
 
+import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static utils.settings.MagentoSettings.waitForPageLoaded;
 
@@ -25,6 +28,7 @@ public class WishlistSteps {
     private MagentoUser magentoUser;
 
     private StorePage storePage;
+    private WishlistPage wishlistPage;
 
     public int itemNumberBefore;
     public int itemNumberAfter;
@@ -44,12 +48,16 @@ public class WishlistSteps {
 
     @When("user adds {int} first item in WishList")
     public void userAddsFirstItemInWishList(int itemsNumber) {
-        List<WebElementFacade> itemsList = storePage.getItemsList();
-        for (WebElementFacade item:itemsList) {
-            while (!(itemsNumber == 0)){
+        List<WebElementFacade> itemsList = storePage.getItem();
+        for (WebElementFacade item : itemsList) {
+            while (!(itemsNumber == 0)) {
+                waitForPageLoaded();
                 Actions action = new Actions(basePage.getDriver());
-                action.moveToElement(item.findElement(By.xpath("//a[@data-action='add-to-wishlist']"))).perform();
-                action.click();
+                action.moveToElement(item).perform();
+                item.findElement(By.xpath("//a[@data-action='add-to-wishlist']")).click();
+                if (itemsNumber>1) {
+                    basePage.getDriver().navigate().back();
+                }
 //                item.findElement(By.xpath("//a[@data-action='add-to-wishlist']")).click();
                 itemsNumber--;
             }
@@ -61,10 +69,13 @@ public class WishlistSteps {
     @Then("items are added successfully")
     public void itemsAreAddedSuccessfully() {
         System.out.println("Check wishlist");
+        assertTrue(wishlistPage.getMessagesList().getText().contains("has been added to your Wish List"));
+
     }
 
-    @And("the {int} items added are displayed in User Profile")
-    public void theItemsAddedAreDisplayedInUserProfile(int itemsNumber) {
+    @And("the {string} items added are displayed in User Profile")
+    public void theItemsAddedAreDisplayedInUserProfile(String expectedItemsNumber) {
 
+        assertTrue(wishlistPage.getWishlistCounter().getText().contentEquals(expectedItemsNumber));
     }
 }

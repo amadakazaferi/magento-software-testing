@@ -35,4 +35,9 @@ public class GlobalHooks {
         magentoUser.logout();
     }
 
+    @After(value = "@CleanWishlist")
+    public void cleanWishlist(){
+        magentoUser.cleanWishlist();
+    }
+
 }

@@ -1,4 +1,4 @@
-@UserLoggedIn @Test4 @Test3Precondition
+@UserLoggedIn @Test4 @CleanWishlist
 Feature: Wishlist
 
   Background:
@@ -13,7 +13,7 @@ Feature: Wishlist
     Then the item number increases
     When user adds <itemNumber> first item in WishList
     Then  items are added successfully
-    And the <itemNumber> items added are displayed in User Profile
+    And the "<itemNumber>" items added are displayed in User Profile
 
     Examples:
       | itemNumber |

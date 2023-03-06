@@ -1,5 +1,6 @@
 package steps;
 
+import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
 import org.openqa.selenium.interactions.Actions;
 import pages.magento.*;
@@ -17,6 +18,7 @@ public class MagentoUser extends BasePage {
     private CreateAccountPage createAccountPage;
     private ProfilePage accountPage;
     private StorePage storePage;
+    private WishlistPage wishlistPage;
 
     @Step("#actor logs in with dynamic email")
     public void loginWithDynamicEmail() throws IOException {
@@ -106,5 +108,13 @@ public class MagentoUser extends BasePage {
     public void sortFilters(String option) {
         storePage.getSorterSelectButton().waitUntilClickable().click();
         storePage.getSorterOption(option).waitUntilClickable().click();
+    }
+
+    @Step("#actor cleans wishlist")
+    public void cleanWishlist() {
+        List<WebElementFacade> wishlistItems = wishlistPage.getWishlistItems();
+        for (WebElementFacade item : wishlistItems) {
+            wishlistPage.getRemoveItem().waitUntilClickable().click();
+        }
     }
 }

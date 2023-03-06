@@ -21,6 +21,15 @@ public class StorePage extends BasePage {
  @FindBy(xpath = "//div[@class='filter-options-title' and text()='Price']/..")
  private WebElementFacade priceFilterButton;
 
+ @FindBy(xpath = "//span[text()='Price']//following-sibling::a[@class='action remove']")
+ private WebElementFacade priceRemoveButton;
+
+ @FindBy(xpath = "//div[contains(@class,'filter-current')]")
+ private WebElementFacade activeFiltersContainer;
+
+ @FindBy(xpath = "(//span[@class='toolbar-number'])[1]")
+ private WebElementFacade itemsNumber;
+
 
  private String colorChoiceButton = "//div[@class='filter-options-title' and text()='Color']/following-sibling::div//div[@option-label='%s']";
 
@@ -31,6 +40,9 @@ public class StorePage extends BasePage {
 
  @FindBy(xpath = "//ol[@class='products list items product-items']")
  private List<WebElementFacade> itemsList;
+
+ @FindBy(xpath = "//ol[@class='products list items product-items']//li")
+ private List<WebElementFacade> item;
 
  private String fixedPriceRange = "//div[@class='filter-options-title' and text()='Price']//following-sibling::div//a[contains(@href,'%s')]";
 
@@ -94,4 +106,19 @@ public class StorePage extends BasePage {
   return find(By.xpath(String.format(sorterOption, option)));
  }
 
+ public WebElementFacade getPriceRemoveButton() {
+  return priceRemoveButton;
+ }
+
+ public WebElementFacade getActiveFiltersContainer() {
+  return activeFiltersContainer;
+ }
+
+ public WebElementFacade getItemsNumber() {
+  return itemsNumber;
+ }
+
+ public List<WebElementFacade> getItem() {
+  return item;
+ }
 }
