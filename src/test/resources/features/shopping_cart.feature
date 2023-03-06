@@ -6,12 +6,16 @@ Feature:Shopping cart
     And user selects price "50-60"
 
   @Test5  @UserLoggedIn
-  Scenario: User adds item to shopping cart
+  Scenario Outline: User adds item to shopping cart
   When user adds all displayed items in Shopping Cart
   Then items are successfully added
   When user opens Shopping Cart
-  Then the user is in Shopping Cart Page
+    Then  the page "<title>" is opened
   And  sum of all items price equals Total price
+
+    Examples:
+      | title                       |
+      | Shopping Cart |
 
 
 #  Precondition: Test 3

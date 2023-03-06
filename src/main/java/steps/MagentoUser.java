@@ -2,6 +2,7 @@ package steps;
 
 import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.annotations.Step;
+import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
 import pages.magento.*;
 
@@ -19,6 +20,7 @@ public class MagentoUser extends BasePage {
     private ProfilePage accountPage;
     private StorePage storePage;
     private WishlistPage wishlistPage;
+    private ShoppingCartPage shoppingCartPage;
 
     @Step("#actor logs in with dynamic email")
     public void loginWithDynamicEmail() throws IOException {
@@ -80,6 +82,7 @@ public class MagentoUser extends BasePage {
         storePage.getColorChoiceButton(colorName).click();
         basePage.resetImplicitTimeout();
     }
+
     @Step("#actor selects first price Range")
     public void selectFirstPriceRange() {
         setImplicitTimeout(30, ChronoUnit.SECONDS);
@@ -104,6 +107,7 @@ public class MagentoUser extends BasePage {
         else
             System.out.println("There is no active filters");
     }
+
     @Step("#actor sorts filters based on option")
     public void sortFilters(String option) {
         storePage.getSorterSelectButton().waitUntilClickable().click();
@@ -116,5 +120,29 @@ public class MagentoUser extends BasePage {
         for (WebElementFacade item : wishlistItems) {
             wishlistPage.getRemoveItem().waitUntilClickable().click();
         }
+    }
+
+    @Step("#actor adds items to cart")
+    public void addToCart() {
+        List<WebElementFacade> itemsList = storePage.getItem();
+        for (WebElementFacade item : itemsList) {
+            Actions action = new Actions(basePage.getDriver());
+            action.moveToElement(item).perform();
+            shoppingCartPage.getSize().waitUntilClickable().click();
+            shoppingCartPage.getAddToCartButton().click();
+        }
+    }
+
+
+    public boolean checkPriceSumEqualsTotalPrice() {
+        waitForPageLoaded();
+        int expectedPriceTotal = Integer.parseInt(shoppingCartPage.getTotalPrice().getText().replace("$",""));
+        int sumOfItemsInCart = 0;
+        List<WebElementFacade> itemsList = shoppingCartPage.getCartItemsList();
+        for (WebElementFacade item : itemsList) {
+            String str = item.findElement(By.xpath("//tbody[@class='cart item']//td[@data-th='Subtotal']//span//span//span")).getText().replace("$", "");
+            sumOfItemsInCart = +Integer.parseInt(str);
+        }
+        return expectedPriceTotal == sumOfItemsInCart;
     }
 }
