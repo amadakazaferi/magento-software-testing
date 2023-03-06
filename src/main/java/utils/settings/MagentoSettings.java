@@ -1,19 +1,27 @@
 package utils.settings;
 
+import com.ibm.icu.impl.Assert;
+import net.thucydides.core.webdriver.ThucydidesWebDriverSupport;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.*;
-import java.util.Scanner;
+import java.time.Duration;
 
 public class MagentoSettings {
-
+private static final WebDriver driver= ThucydidesWebDriverSupport.getDriver();
     public static final String testFirstName = "Test";
     public static final String testLastName = "User";
     public static final String testPassword = "userTest23.";
 
+    public static final String simpleEmail = "test.user23@gmail.com";
     public static final String baseMail = "test_user";
     public static String dynamicEmail = "";
 
     public static String lastDynamicEmail = "";
-    public static final String testUsername = testFirstName.concat(testLastName);
+    public static final String testUsername = testFirstName.concat(" " + testLastName);
 
     public static final String magentoBaseUrl = "https://magento.softwaretestingboard.com/";
     public static final String magentoLoginUrl = magentoBaseUrl + "/customer/account/login/";
@@ -38,4 +46,18 @@ public class MagentoSettings {
         return lastLine;
     }
 
+    public static void waitForPageLoaded() {
+        ExpectedCondition<Boolean> expectation = new
+                ExpectedCondition<Boolean>() {
+                    public Boolean apply(WebDriver driver) {
+                        return ((JavascriptExecutor) driver).executeScript("return document.readyState").toString().equals("complete");
+                    }
+                };
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+            wait.until(expectation);
+        } catch (Throwable error) {
+            Assert.fail("Timeout waiting for Page Load Request to complete.");
+        }
+    }
 }

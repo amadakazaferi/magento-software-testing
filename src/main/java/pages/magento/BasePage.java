@@ -17,14 +17,17 @@ public class BasePage extends PageObject {
     @FindBy(xpath = "//div[@class='panel header']//a[contains(text(),'Sign In')]")
     private WebElementFacade signInLink;
 
+    @FindBy(xpath = "//div[@class='panel header']//span[@class='logged-in']")
+    private WebElementFacade usernameLink;
+
     public WebElementFacade getCreateAccountLink() { return createAccountLink; }
     public WebElementFacade getSignInLink() { return signInLink; }
 
-
+    public WebElementFacade getUsernameLink() { return usernameLink; }
 
     /* navigates to Magento HomePage */
-    public void navigateToHome(){
-        getDriver().navigate().to(magentoBaseUrl);
+    public void navigateTo(String url){
+        getDriver().navigate().to(url);
     }
 
     /**

@@ -14,9 +14,16 @@ public class LoginPage extends BasePage{
     @FindBy(xpath = "//button[@class='action login primary']")
     private WebElementFacade loginButton;
 
+    @FindBy(xpath = "//div[@class='page messages']")
+    private WebElementFacade pageMessages;
+
     public WebElementFacade getLoginEmailInput() { return loginEmailInput; }
 
     public WebElementFacade getLoginPswInput() { return loginPswInput; }
 
     public WebElementFacade getLoginButton() { return loginButton; }
+
+    public WebElementFacade getPageMessages() {
+        return pageMessages;
+    }
 }

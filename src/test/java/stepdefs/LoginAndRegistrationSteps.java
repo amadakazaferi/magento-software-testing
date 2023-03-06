@@ -9,10 +9,12 @@ import pages.magento.AccountPage;
 import pages.magento.BasePage;
 import pages.magento.CreateAccountPage;
 import pages.magento.LoginPage;
+import steps.MagentoUser;
 import utils.settings.MagentoSettings;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -20,16 +22,16 @@ import static utils.settings.MagentoSettings.*;
 
 public class LoginAndRegistrationSteps {
 
-private BasePage basePage;
-private CreateAccountPage createAccountPage;
-private AccountPage accountPage;
-private LoginPage loginPage;
-
+    private BasePage basePage;
+    private CreateAccountPage createAccountPage;
+    private AccountPage accountPage;
+    private LoginPage loginPage;
+    private MagentoUser magentoUser;
 
 
     @Given("a user is navigating the Magento app")
     public void aUserIsNavigatingTheApp() {
-        basePage.navigateToHome();
+        basePage.navigateTo(magentoBaseUrl);
     }
 
     @When("user clicks on link to {string}")
@@ -48,39 +50,34 @@ private LoginPage loginPage;
 
     @And("user sign in with credentials")
     public void login() throws IOException {
-       dynamicEmail = readStrFromFile();
-        loginPage.getLoginEmailInput().sendKeys(dynamicEmail);
-        loginPage.getLoginPswInput().sendKeys(testPassword);
-        loginPage.getLoginButton().click();
+        magentoUser.loginWithDynamicEmail();
     }
 
     @Then("the username is displayed right")
     public void checkUsername() {
-
+        basePage.setImplicitTimeout(30, ChronoUnit.SECONDS);
+        basePage.getUsernameLink().waitUntilVisible();
+        assertTrue(basePage.getUsernameLink().getText().contains(testUsername), "Username is correct.");
+        basePage.resetImplicitTimeout();
     }
 
     @And("user sign out")
     public void logout() {
-        accountPage.getMenuToggle().click();
-        accountPage.getLogoutButton().waitUntilClickable().click();
+      magentoUser.logout();
     }
 
     @When("user fills the form and creates the account")
     public void fillRegistrationForm() throws IOException {
-        dynamicEmail = basePage.generateRandomEmailAddress();
-        writeStrToFile(dynamicEmail);
-        createAccountPage.getFirstNameinput().sendKeys(testFirstName);
-        createAccountPage.getLastNameinput().sendKeys(testLastName);
-        createAccountPage.getEmailAddressInput().sendKeys(dynamicEmail);
-        createAccountPage.getPasswordInput().sendKeys(testPassword);
-        createAccountPage.getConfirmPasswordInput().sendKeys(testPassword);
-        createAccountPage.getCreateAccountButton().click();
+        magentoUser.fillRegistrationForm();
 
     }
 
     @Then("the account is successfully  created")
     public void theAccountIsSuccessfullyCreated() {
+        basePage.setImplicitTimeout(30, ChronoUnit.SECONDS);
         System.out.println("Check account");
-       assertTrue(createAccountPage.getAccountCreatedAlert().containsText("Thank you for registering"));
+        createAccountPage.getAccountCreatedAlert().waitUntilVisible();
+        assertTrue(createAccountPage.getAccountCreatedAlert().containsText("Thank you for registering"));
+        basePage.resetImplicitTimeout();
     }
 }
