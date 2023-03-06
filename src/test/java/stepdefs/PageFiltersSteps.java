@@ -4,6 +4,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.serenitybdd.core.pages.WebElementFacade;
+import net.thucydides.core.annotations.Steps;
 import org.openqa.selenium.By;
 import pages.magento.BasePage;
 import pages.magento.StorePage;
@@ -15,8 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PageFiltersSteps {
 
+  @Steps(shared = true)
+  private MagentoUser magentoUser;
+
     private BasePage basePage;
-    private MagentoUser magentoUser;
+
     private StorePage storePage;
 
     @Given("the user selects filters from the store menu")

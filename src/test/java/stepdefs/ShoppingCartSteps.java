@@ -30,11 +30,11 @@ private MagentoUser magentoUser;
     public void sumOfAllItemsPriceEqualsTotalPrice() {
     }
 
-    @When("user deletes {string} item from shopping cart")
-    public void userDeletesItemFromShoppingCart(String arg0) {
+    @When("user deletes {int} item from shopping cart")
+    public void userDeletesItemFromShoppingCart(int itemNumber) {
     }
 
-    @Then("the number of items is decreased by {string} item")
-    public void theNumberOfItemsIsDecreasedByItem(String arg0) {
+    @Then("the number of items is decreased by {int} item")
+    public void theNumberOfItemsIsDecreasedByItem(int itemNumber) {
     }
 }

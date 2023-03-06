@@ -10,8 +10,8 @@ Feature: Empty Shopping Cart
  @Test6 @UserLoggedIn
   Scenario: User removes items from shopping cart
     Given user opens Shopping Cart
-    When user deletes "1" item from shopping cart
-    Then the number of items is decreased by "1" item
+    When user deletes 1 item from shopping cart
+    Then the number of items is decreased by 1 item
 
 
 #  Precondition: Test 5

@@ -1,3 +1,4 @@
+@UserLoggedIn @Test4 @Test3Precondition
 Feature: Wishlist
 
   Background:
@@ -6,14 +7,13 @@ Feature: Wishlist
     When user selects "Black" color in Shopping Options panel
     And user selects price "50-60"
 
-  @UserLoggedIn @Test4 @Test3Precondition
   Scenario Outline: User is able to add items to wishlist
 
     Given user removes existing price filter
-#    Then the item number increases
-#    When user adds "<itemNumber>" first item in WishList
-#    Then  items are added successfully
-#    And the "<itemNumber>" items added are displayed in User Profile
+    Then the item number increases
+    When user adds <itemNumber> first item in WishList
+    Then  items are added successfully
+    And the <itemNumber> items added are displayed in User Profile
 
     Examples:
       | itemNumber |

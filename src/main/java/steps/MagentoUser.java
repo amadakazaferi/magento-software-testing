@@ -62,7 +62,7 @@ public class MagentoUser extends BasePage {
     public void checkPageFilters(List<List<String>> dataTable) {
         List<String> pageFilters = dataTable.get(0);
         basePage.setImplicitTimeout(30, ChronoUnit.SECONDS);
-        Actions action = new Actions(getDriver());
+        Actions action = new Actions(basePage.getDriver());
         action.moveToElement(storePage.getLevel1MenuDropdown(pageFilters.get(0))).perform();
         action.moveToElement(storePage.getLevel2MenuDropdown(pageFilters.get(1))).perform();
         action.moveToElement(storePage.getLevel3MenuDropdown(pageFilters.get(2))).perform();
@@ -90,13 +90,17 @@ public class MagentoUser extends BasePage {
     public void selectPriceRange(String priceRange) {
         setImplicitTimeout(30, ChronoUnit.SECONDS);
         storePage.getPriceFilterButton().waitUntilClickable().click();
-        storePage.getFixedPriceRange(priceRange);
+        storePage.getFixedPriceRange(priceRange).click();
         resetImplicitTimeout();
     }
 
     @Step("#actor removes price filter")
     public void removePriceFilter() {
-
+        waitForPageLoaded();
+        if (storePage.getActiveFiltersContainer().isVisible())
+            storePage.getPriceRemoveButton().waitUntilClickable().click();
+        else
+            System.out.println("There is no active filters");
     }
     @Step("#actor sorts filters based on option")
     public void sortFilters(String option) {
