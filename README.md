@@ -6,7 +6,7 @@ This site was built using [Gradle Build Tool](https://gradle.org/).
 To start the Test Suite, please run the **TestRunner.java** or run in the terminal the Gradle command './gradlew clean test --info'
 
 - Serenity BDD is a library that makes it easier to write high quality automated acceptance tests, with powerful reporting and living documentation features. It has strong support for both web testing with Selenium, and API testing using RestAssured. 
-- Design patterns like Page Objects, Step & Settings Classes approach are used in this solution to make the tests very readable and easily maintainable.
+- Design patterns like Page Objects, Steps(Actor) & Settings Classes approach are used in this solution to make the tests very readable and easily maintainable.
 - Tests are written in BDD Gherkin format and it is represented as a living documentation in the test report in the directory 'target/site/serenity/'
 - Application under test: (https://magento.softwaretestingboard.com/)
 
