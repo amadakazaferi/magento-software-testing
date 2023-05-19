@@ -136,12 +136,12 @@ public class MagentoUser extends BasePage {
 
     public boolean checkPriceSumEqualsTotalPrice() {
         waitForPageLoaded();
-        int expectedPriceTotal = Integer.parseInt(shoppingCartPage.getTotalPrice().getText().replace("$",""));
-        int sumOfItemsInCart = 0;
+        double expectedPriceTotal = Double.parseDouble(shoppingCartPage.getTotalPrice().getText().replace("$",""));
+        double sumOfItemsInCart = 0.0;
         List<WebElementFacade> itemsList = shoppingCartPage.getCartItemsList();
         for (WebElementFacade item : itemsList) {
             String str = item.findElement(By.xpath("//tbody[@class='cart item']//td[@data-th='Subtotal']//span//span//span")).getText().replace("$", "");
-            sumOfItemsInCart += Integer.parseInt(str);
+            sumOfItemsInCart += Double.parseDouble(str);
         }
         return expectedPriceTotal == sumOfItemsInCart;
     }
